@@ -1,0 +1,40 @@
+ranks:
+  visitor:
+    group: "default"
+    requirements:
+      playtime:
+        years: 0
+        months: 0
+        weeks: 0
+        days: 0
+        hours: 0
+        minutes: 0
+        seconds: 0
+      votes:
+        total: 0
+  citizen:
+    group: "citizen"
+    requirements:
+      playtime:
+        years: 0
+        months: 0
+        weeks: 0
+        days: 0
+        hours: 2
+        minutes: 0
+        seconds: 0
+      votes:
+        total: 5
+  veteran:
+    group: "veteran"
+    requirements:
+      playtime:
+        years: 0
+        months: 1
+        weeks: 0
+        days: 0
+        hours: 0
+        minutes: 0
+        seconds: 0
+      votes:
+        total: 100
