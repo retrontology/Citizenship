@@ -65,12 +65,11 @@ public class Citizenship
 	{
 		CitizenshipRank playerRank = getPlayerRank(player);
 		if(playerRank == null) { return null; }
-		CitizenshipRank nextRank = null;
 		for(CitizenshipRank rank : CitizenshipRank.values())
 		{
 			if(rank.getRank() == playerRank.getRank() + 1)
 			{
-				return nextRank;
+				return rank;
 			}
 		}
 		return null;
@@ -85,8 +84,6 @@ public class Citizenship
 	
 	public boolean checkForPromotion(Player player)
 	{
-		CitizenshipRank playerRank = getPlayerRank(player);
-		if(playerRank == null){ return false; }
 		CitizenshipRank nextRank = getNextRank(player);
 		if(nextRank == null) { return false; }
 		if(playerMeetsReqs(player, nextRank))
