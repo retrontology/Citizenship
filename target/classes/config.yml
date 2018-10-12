@@ -1,17 +1,13 @@
+update:
+  interval:
+    years: 0
+    months: 0
+    weeks: 0
+    days: 0
+    hours: 
+    minutes: 5
+    seconds: 0
 ranks:
-  visitor:
-    group: "default"
-    requirements:
-      playtime:
-        years: 0
-        months: 0
-        weeks: 0
-        days: 0
-        hours: 0
-        minutes: 0
-        seconds: 0
-      votes:
-        total: 0
   citizen:
     group: "citizen"
     requirements:

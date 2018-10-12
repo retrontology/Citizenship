@@ -15,10 +15,14 @@ public class Citizenship
   extends JavaPlugin
 {
 	
+	CitizenshipConfig config;
+	
 	public void onEnable()
 	{
-		CitizenshipCommandExecutor ccommandexec = new CitizenshipCommandExecutor();
-		getCommand("citizenship").setExecutor(ccommandexec);
+		config = new CitizenshipConfig();
+		getCommand("citizenship").setExecutor(new CitizenshipCommandExecutor());
+		Bukkit.getServer().getPluginManager().registerEvents(new CitizenshipListener(), this);
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new CitizenshipTimedTask(), 0L, config.getUpdateTime());
 	}
 	
 	public void onDisable()

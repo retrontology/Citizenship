@@ -10,7 +10,10 @@ implements CommandExecutor
 {
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		// TODO Auto-generated method stub
+		if (command.getName().equalsIgnoreCase("citizenship"))
+	    {
+			
+	    }
 		return false;
 	}
 	

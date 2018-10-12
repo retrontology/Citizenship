@@ -1,2 +1,5 @@
 com\retrontology\citizenship\CitizenshipCommandExecutor.class
-com\retrontology\citizenship\Citizenship.class
+com\retrontology\citizenship\CitizenshipTimedUpdate.class
+com\retrontology\citizenship\CitizenshipListener.class
+com\retrontology\citizenship\CitizenshipConfig.class
+com\retrontology\citizenship\CitizenshipRank.class
