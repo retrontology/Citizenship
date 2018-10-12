@@ -1,6 +1,6 @@
 main: com.retrontology.citizenship.Citizenship
 name: Citizenship
-version: 1.0.0
+version: 1.0.2
 author: Retrontology
 description: A plugin that automates citizenship and ranks through LuckPerms and VotingPlugin
 depend: [VotingPlugin, LuckPerms]
@@ -11,16 +11,10 @@ permissions:
 commands:
   visitor:
     description: Set player's primary group to default
-    permission: citizenship.admin
-    permission-message: What do you think you are doing :I
     usage: /visitor <player>
   citizen:
     description: Set player's primary group to citizen
-    permission: citizenship.admin
-    permission-message: Become a citizen to view the Top Survivor Board
     usage: /citizen <player>
   veteran:
     description: Set player's primary group to veteran
-    permission: citizenship.admin
-    permission-message: Become a citizen to view the Top Survivor Board
     usage: /veteran <player>

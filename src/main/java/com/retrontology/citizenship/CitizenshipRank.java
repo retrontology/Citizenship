@@ -22,4 +22,9 @@ public enum CitizenshipRank {
 	{
 		return this.name;
 	}
+	
+	public String toString()
+	{
+		return this.name;
+	}
 }

@@ -3,6 +3,8 @@ package com.retrontology.citizenship;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.lucko.luckperms.LuckPerms;
+import me.lucko.luckperms.api.DataMutateResult;
+
 import com.Ben12345rocks.VotingPlugin.UserManager.UserManager;
 import org.bukkit.Statistic;
 import org.bukkit.Bukkit;
@@ -23,7 +25,7 @@ public class Citizenship
 		this.getCommand("citizen").setExecutor(cmdexecutor);
 		this.getCommand("veteran").setExecutor(cmdexecutor);
 		Bukkit.getServer().getPluginManager().registerEvents(new CitizenshipListener(), this);
-		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new CitizenshipTimedTask(), 0L, config.getUpdateTime());
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new CitizenshipTimedTask(), 0L, config.getUpdateTime()*20);
 	}
 	
 	public void onDisable()
@@ -33,7 +35,10 @@ public class Citizenship
 	
 	private boolean setParent(Player player, String group)
 	{
-		return LuckPerms.getApi().getUser(player.getUniqueId()).setPrimaryGroup(group).wasSuccess();
+		//DataMutateResult result = LuckPerms.getApi().getUser(player.getUniqueId()).setPrimaryGroup(group);
+		//this.getLogger().info(result.toString());
+		//return result.wasSuccess();
+		return Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.getName() + " group set " + group);
 	}
 	
 	private String getParent(Player player)
@@ -57,7 +62,7 @@ public class Citizenship
 		String parent = getParent(player);
 		for(CitizenshipRank rank : CitizenshipRank.values())
 		{
-			if(parent == rank.name())
+			if(parent.equals(rank.getName()))
 			{
 				return rank;
 			}
@@ -73,9 +78,11 @@ public class Citizenship
 		{
 			if(rank.getRank() == playerRank.getRank() + 1)
 			{
+				//getLogger().info(player.getName() + "'s next rank is " + rank.getName());
 				return rank;
 			}
 		}
+		//getLogger().info("Couldn't find the next rank for " + player.getName());
 		return null;
 	}
 	
@@ -88,12 +95,13 @@ public class Citizenship
 	
 	public boolean checkForPromotion(Player player)
 	{
+		//getLogger().info("Checking if " + player.getName() + " is eligible for a promotion");
 		CitizenshipRank nextRank = getNextRank(player);
 		if(nextRank == null) { return false; }
 		if(playerMeetsReqs(player, nextRank))
 		{
 			setRank(player, nextRank);
-			this.getLogger().info(player.getName() + " has been found qualified for a promotion");
+			this.getLogger().info(player.getName() + " has been found eligible for a promotion");
 			return true;
 		}
 		return false;
@@ -102,13 +110,13 @@ public class Citizenship
 	public boolean setRank(Player player, CitizenshipRank rank)
 	{
 		boolean ret = setParent(player, rank.getName());
-		if(ret)
+		if(ret != false)
 		{
 			for(Player p : Bukkit.getOnlinePlayers())
 			{
 				if(config.getMessage(rank) != null) { p.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getMessage(rank).replace("%p", player.getName()))); }
-			    this.getLogger().info(player.getName() + " has had their primary group set to " + rank.getName());
 			}
+			this.getLogger().info(player.getName() + " has had their primary group set to " + rank.getName());
 		}
 		return ret;
 	}
