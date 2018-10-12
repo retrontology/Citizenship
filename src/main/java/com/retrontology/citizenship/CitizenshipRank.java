@@ -1,7 +1,7 @@
 package com.retrontology.citizenship;
 
 public enum CitizenshipRank {
-	VISITOR ("visitor", 0),
+	VISITOR ("default", 0),
 	CITIZEN ("citizen", 1),
 	VETERAN ("veteran", 2);
 	
