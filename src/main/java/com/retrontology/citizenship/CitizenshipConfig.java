@@ -28,7 +28,7 @@ public class CitizenshipConfig {
 	{
 		try
 	    {
-			config.save(this.file);
+			this.config.save(this.file);
 			return true;
 	    }
 	    catch (Exception e)
@@ -71,35 +71,50 @@ public class CitizenshipConfig {
 	private Duration getDuration(String base)
 	{
 		Duration duration = Duration.ofSeconds(0);
-		if(config.contains(base + ".seconds"))
+		if(this.config.contains(base + ".seconds"))
 		{
-			duration = Duration.ofSeconds(config.getInt(base + ".seconds"));
+			duration = Duration.ofSeconds(this.config.getInt(base + ".seconds"));
 		}
-		if(config.contains(base + ".minutes"))
+		if(this.config.contains(base + ".minutes"))
 		{
-			duration = duration.plusMinutes(config.getInt(base + ".minutes"));
+			duration = duration.plusMinutes(this.config.getInt(base + ".minutes"));
 		}
-		if(config.contains(base + ".hours"))
+		if(this.config.contains(base + ".hours"))
 		{
-			duration = duration.plusHours(config.getInt(base + ".hours"));
+			duration = duration.plusHours(this.config.getInt(base + ".hours"));
 		}
-		if(config.contains(base + ".days"))
+		if(this.config.contains(base + ".days"))
 		{
-			duration = duration.plusDays(config.getInt(base + ".days"));
+			duration = duration.plusDays(this.config.getInt(base + ".days"));
 		}
-		if(config.contains(base + ".weeks"))
+		if(this.config.contains(base + ".weeks"))
 		{
-			duration = duration.plusDays(config.getInt(base + ".weeks")*7);
+			duration = duration.plusDays(this.config.getInt(base + ".weeks")*7);
 		}
-		if(config.contains(base + ".months"))
+		if(this.config.contains(base + ".months"))
 		{
-			duration = duration.plusDays(Math.round((config.getInt(base + ".months")*30.4167)));
+			duration = duration.plusDays(Math.round((this.config.getInt(base + ".months")*30.4167)));
 		}
-		if(config.contains(base + ".years"))
+		if(this.config.contains(base + ".years"))
 		{
-			duration = duration.plusDays(Math.round((config.getInt(base + ".years")*365)));
+			duration = duration.plusDays(Math.round((this.config.getInt(base + ".years")*365)));
 		}
 		return duration;
+	}
+	
+	public int getVoteReq(CitizenshipRank rank)
+	{
+		return this.config.getInt("ranks." + rank.getName() + ".requirements.votes.total");
+	}
+	
+	public long getPlayTimeReq(CitizenshipRank rank)
+	{
+		return this.getDuration("ranks." + rank.getName() + ".requirements.playtime").getSeconds();
+	}
+	
+	public String getMessage(CitizenshipRank rank)
+	{
+		return this.config.getString("ranks." + rank.getName() + ".message");
 	}
 
 }

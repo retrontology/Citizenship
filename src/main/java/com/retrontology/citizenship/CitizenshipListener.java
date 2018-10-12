@@ -1,7 +1,7 @@
 package com.retrontology.citizenship;
 
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
@@ -13,22 +13,26 @@ implements Listener
 	@EventHandler
 	public void onLogin(PlayerLoginEvent event)
 	{
-		
+		Player player = event.getPlayer();
+		((Citizenship)Bukkit.getServer().getPluginManager().getPlugin("Citizenship")).checkForPromotion(player);
 	}
 	
 	@EventHandler
 	public void onVote(PlayerVoteEvent event)
 	{
-		OfflinePlayer player = Bukkit.getServer().getOfflinePlayer(event.getPlayer());
+		Player player = Bukkit.getServer().getPlayer(event.getPlayer());
 		if(player.isOnline() && !event.isCancelled())
 		{
-			
+			((Citizenship)Bukkit.getPluginManager().getPlugin("Citizenship")).checkForPromotion(player);
 		}
 	}
 	
 	@EventHandler
 	public void onCitizenshipTimedUpdate(CitizenshipTimedUpdate event)
 	{
-		
+		for(Player player : Bukkit.getOnlinePlayers())
+		{
+			((Citizenship)Bukkit.getServer().getPluginManager().getPlugin("Citizenship")).checkForPromotion(player);
+		}
 	}
 }

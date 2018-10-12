@@ -3,11 +3,8 @@ package com.retrontology.citizenship;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.lucko.luckperms.LuckPerms;
-import me.lucko.luckperms.api.LuckPermsApi;
-import me.lucko.luckperms.api.User;
 import com.Ben12345rocks.VotingPlugin.UserManager.UserManager;
-
-import org.bukkit.OfflinePlayer;
+import org.bukkit.Statistic;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -30,19 +27,86 @@ public class Citizenship
 		
 	}
 	
-	private boolean setParent(OfflinePlayer player, String group)
+	private boolean setParent(Player player, String group)
 	{
 		return LuckPerms.getApi().getUser(player.getUniqueId()).setPrimaryGroup(group).wasSuccess();
 	}
 	
-	private String getParent(OfflinePlayer player)
+	private String getParent(Player player)
 	{
 		return LuckPerms.getApi().getUser(player.getUniqueId()).getPrimaryGroup();
 
 	}
 	
-	private int getVotes(OfflinePlayer player)
+	private int getVotes(Player player)
 	{
 		return UserManager.getInstance().getVotingPluginUser(player.getUniqueId()).getMonthTotal();
+	}
+	
+	private int getPlayTime(Player player)
+	{
+		return player.getStatistic(Statistic.PLAY_ONE_MINUTE) / 20;
+	}
+	
+	private CitizenshipRank getPlayerRank(Player player)
+	{
+		String parent = getParent(player);
+		for(CitizenshipRank rank : CitizenshipRank.values())
+		{
+			if(parent == rank.name())
+			{
+				return rank;
+			}
+		}
+		return null;
+	}
+	
+	private CitizenshipRank getNextRank(Player player)
+	{
+		CitizenshipRank playerRank = getPlayerRank(player);
+		if(playerRank == null) { return null; }
+		CitizenshipRank nextRank = null;
+		for(CitizenshipRank rank : CitizenshipRank.values())
+		{
+			if(rank.getRank() == playerRank.getRank() + 1)
+			{
+				return nextRank;
+			}
+		}
+		return null;
+	}
+	
+	private boolean playerMeetsReqs(Player player, CitizenshipRank rank)
+	{
+		boolean timeReq = getVotes(player) >= config.getVoteReq(rank);
+		boolean voteReq = getPlayTime(player) >= config.getPlayTimeReq(rank);
+		return voteReq && timeReq;
+	}
+	
+	public boolean checkForPromotion(Player player)
+	{
+		CitizenshipRank playerRank = getPlayerRank(player);
+		if(playerRank == null){ return false; }
+		CitizenshipRank nextRank = getNextRank(player);
+		if(nextRank == null) { return false; }
+		if(playerMeetsReqs(player, nextRank))
+		{
+			setRank(player, nextRank);
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean setRank(Player player, CitizenshipRank rank)
+	{
+		boolean ret = setParent(player, rank.getName());
+		if(ret)
+		{
+			for(Player p : Bukkit.getOnlinePlayers())
+			{
+				p.sendMessage(config.getMessage(rank).replace("%p", player.getName()));
+			}
+		}
+		return ret;
 	}
 }

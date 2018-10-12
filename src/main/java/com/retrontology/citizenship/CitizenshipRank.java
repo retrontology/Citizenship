@@ -12,4 +12,14 @@ public enum CitizenshipRank {
 		this.name = name;
 		this.rank = rank;
 	}
+	
+	public int getRank()
+	{
+		return this.rank;
+	}
+	
+	public String getName()
+	{
+		return this.name;
+	}
 }

@@ -10,6 +10,7 @@ update:
 ranks:
   citizen:
     group: "citizen"
+    message: "Welcome %p to citizenship"
     requirements:
       playtime:
         years: 0
@@ -23,6 +24,7 @@ ranks:
         total: 5
   veteran:
     group: "veteran"
+    message: "Welcome %p to the Veteran's Club"
     requirements:
       playtime:
         years: 0
