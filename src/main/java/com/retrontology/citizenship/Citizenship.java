@@ -92,6 +92,7 @@ public class Citizenship
 		if(playerMeetsReqs(player, nextRank))
 		{
 			setRank(player, nextRank);
+			this.getLogger().info(player.getName() + " has been found qualified for a promotion");
 			return true;
 		}
 		return false;
@@ -105,6 +106,7 @@ public class Citizenship
 			for(Player p : Bukkit.getOnlinePlayers())
 			{
 				p.sendMessage(config.getMessage(rank).replace("%p", player.getName()));
+			    this.getLogger().info(player.getName() + " has had their primary group set to " + rank.getName());
 			}
 		}
 		return ret;

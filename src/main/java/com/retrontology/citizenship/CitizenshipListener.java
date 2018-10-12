@@ -30,6 +30,7 @@ implements Listener
 	@EventHandler
 	public void onCitizenshipTimedUpdate(CitizenshipTimedUpdate event)
 	{
+		Bukkit.getServer().getPluginManager().getPlugin("Citizenship").getLogger().info("Checking for applicable promotions amongst online players");
 		for(Player player : Bukkit.getOnlinePlayers())
 		{
 			((Citizenship)Bukkit.getServer().getPluginManager().getPlugin("Citizenship")).checkForPromotion(player);

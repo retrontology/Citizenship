@@ -21,7 +21,6 @@ public class CitizenshipConfig {
 	private void saveDefaultConfig()
 	{
 		Bukkit.getServer().getPluginManager().getPlugin("Citizenship").saveDefaultConfig();
-		Bukkit.getServer().getLogger().info("[Top Survivor] No config file was found so the default file was copied over");
 	}
 	
 	private boolean saveConfig()
@@ -29,6 +28,7 @@ public class CitizenshipConfig {
 		try
 	    {
 			this.config.save(this.file);
+			Bukkit.getServer().getPluginManager().getPlugin("Citizenship").getLogger().info("Configuration Saved");
 			return true;
 	    }
 	    catch (Exception e)
@@ -52,8 +52,10 @@ public class CitizenshipConfig {
 			if (!file.exists())
 			{
 				this.saveDefaultConfig();
+				Bukkit.getServer().getPluginManager().getPlugin("Citizenship").getLogger().info("No config file was found so the default file was copied over");
 			}
 			this.config = YamlConfiguration.loadConfiguration(this.file);
+			Bukkit.getServer().getPluginManager().getPlugin("Citizenship").getLogger().info("Configuration Loaded");
 			return true;
 	    }
 		catch (Exception e)
