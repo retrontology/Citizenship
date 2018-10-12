@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.retrontology.citizenship</groupId>
   <artifactId>Citizenship</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>Citizenship</name>
   <description>Small plugin to automate citizenship on Retrohollow</description>
   <repositories>

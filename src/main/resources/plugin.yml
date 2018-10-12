@@ -1,71 +1,26 @@
 main: com.retrontology.citizenship.Citizenship
 name: Citizenship
-version: 0.0.1
+version: 1.0.0
 author: Retrontology
-description: A plugin that automates citizenship and ranks through LuckPerms
+description: A plugin that automates citizenship and ranks through LuckPerms and VotingPlugin
 depend: [VotingPlugin, LuckPerms]
 permissions: 
   citizenship.admin:
     description: Required for using commands
     default: false
 commands:
-  topsurvivor:
-    description: Base command
-    aliases: [cit, citizenship] 
+  visitor:
+    description: Set player's primary group to default
+    permission: citizenship.admin
+    permission-message: What do you think you are doing :I
+    usage: /visitor <player>
+  citizen:
+    description: Set player's primary group to citizen
     permission: citizenship.admin
     permission-message: Become a citizen to view the Top Survivor Board
-    usage: |
-      /topsurvivor - View Top Survivor Leaderboard
-      /topsurvivor view <page/player>- View Top Survivor Leaderboard
-      /topsurvivor viewvoters <page>- View Top Voter Leaderboard
-      /topsurvivor reset - Reset Top Survivor Leaderboard
-      /topsurvivor resetvotes - Reset Votifier and distribute prizes
-      /topsurvivor update - Update Top Survivor Leaderboard
-      /topsurvivor tempban <player> - Ban a player until the board is reset
-      /topsurvivor permaban <player> - Ban a player until they are unbanned
-      /topsurvivor unban <player> - Unban a player from the board
-      /topsurvivor afktpenalty - Modify a players AFKTerminator Penalty
-      /topsurvivor archives - Access previously concluded TopSurvivor contests
-  topsurvivor view:
-    description: View Top Survivor Leaderboard
-    aliases: [topsurvivor v]
-    permission: topsurvivor.citizen
+    usage: /citizen <player>
+  veteran:
+    description: Set player's primary group to veteran
+    permission: citizenship.admin
     permission-message: Become a citizen to view the Top Survivor Board
-    usage: |
-      /topsurvivor view [player/page]
-  topsurvivor reset:
-    description: Reset Top Survivor Leaderboard
-    permission: topsurvivor.admin
-    permission-message: What do you think you are doing :I
-    usage: |
-      /topsurvivor reset
-  topsurvivor update:
-    description: Update Top Survivor Leaderboard
-    permission: topsurvivor.admin
-    permission-message: What do you think you are doing :I
-    usage: |
-      /topsurvivor update
-  topsurvivor tempban:
-    description: Ban player until the scoreboard is reset
-    aliases: [topsurvivor ban, ts ban]
-    permission: topsurvivor.admin
-    permission-message: What do you think you are doing :I
-    usage: |
-      /topsurvivor tempban <player>
-  topsurvivor permaban:
-    description: Ban player until they are unbanned
-    permission: topsurvivor.admin
-    permission-message: What do you think you are doing :I
-    usage: |
-      /topsurvivor permaban <player>
-  topsurvivor unban:
-    description: Unban a player and let them start participating immediately
-    permission: topsurvivor.admin
-    permission-message: What do you think you are doing :I
-    usage: |
-      /topsurvivor unban [player]
-  topsurvivor afktpenalty:
-    description: Modify a player's AFKTerminator penalty
-    permission: topsurvivor.admin
-    permission-message: What do you think you are doing :I
-    usage: 
+    usage: /veteran <player>

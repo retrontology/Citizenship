@@ -7,6 +7,7 @@ import com.Ben12345rocks.VotingPlugin.UserManager.UserManager;
 import org.bukkit.Statistic;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.ChatColor;
 
 public class Citizenship 
   extends JavaPlugin
@@ -17,7 +18,10 @@ public class Citizenship
 	public void onEnable()
 	{
 		config = new CitizenshipConfig();
-		getCommand("citizenship").setExecutor(new CitizenshipCommandExecutor());
+		CitizenshipCommandExecutor cmdexecutor = new CitizenshipCommandExecutor();
+		this.getCommand("visitor").setExecutor(cmdexecutor);
+		this.getCommand("citizen").setExecutor(cmdexecutor);
+		this.getCommand("veteran").setExecutor(cmdexecutor);
 		Bukkit.getServer().getPluginManager().registerEvents(new CitizenshipListener(), this);
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new CitizenshipTimedTask(), 0L, config.getUpdateTime());
 	}
@@ -102,7 +106,7 @@ public class Citizenship
 		{
 			for(Player p : Bukkit.getOnlinePlayers())
 			{
-				p.sendMessage(config.getMessage(rank).replace("%p", player.getName()));
+				if(config.getMessage(rank) != null) { p.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getMessage(rank).replace("%p", player.getName()))); }
 			    this.getLogger().info(player.getName() + " has had their primary group set to " + rank.getName());
 			}
 		}
