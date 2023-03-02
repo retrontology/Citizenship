@@ -11,10 +11,6 @@
       <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
     </repository>
     <repository>
-      <id>maven-central-repo</id>
-      <url>http://central.maven.org/maven2/</url>
-    </repository>
-    <repository>
       <id>jitpack.io</id>
       <url>https://jitpack.io</url>
     </repository>
@@ -25,7 +21,7 @@
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
       <version>1.13-R0.1-SNAPSHOT</version>
-       <scope>provided</scope>
+      <scope>provided</scope>
     </dependency>
     <!--Bukkit API-->
     <dependency>
@@ -42,9 +38,9 @@
     </dependency>
     <!--VotingPlugin API-->
     <dependency>
-      <groupId>com.github.Ben12345rocks</groupId>
+      <groupId>com.github.BenCodez</groupId>
       <artifactId>VotingPlugin</artifactId>
-      <version>LATEST</version>
+      <version>5.18</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
